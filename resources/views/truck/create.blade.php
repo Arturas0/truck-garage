@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('title')
+Register truck
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -10,26 +15,30 @@
                         <div class="row">
                             <div class="form-group col-6">
                                 <label>Maker</label>
-                                <input type="text" name="truck_maker" class="form-control">
+                                <input type="text" name="truck_maker" class="form-control" value="{{ old('truck_maker') }}">
                                 <small class="form-text text-muted">Sunkvežimio pavadinimas</small>
                             </div>
                             <div class="form-group col-6">
                                 <label>Plate number</label>
-                                <input type="text" name="truck_plate" class="form-control">
+                                <input type="text" name="truck_plate" class="form-control"
+                                    value="{{ old('truck_plate') }}">
                                 <small class="form-text text-muted">Sunkvežimio valstybinis numeris</small>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-6">
                                 <label>Make year</label>
-                                <input type="text" name="truck_make_year" class="form-control">
+                                <input type="text" name="truck_make_year" class="form-control"
+                                    value="{{ old('truck_make_year') }}">
                                 <small class="form-text text-muted">Pagaminimo metai</small>
                             </div>
                             <div class="form-group col-6">
                                 <label>Mechanic</label>
                                 <select name="mechanic_id" class="form-control">
                                     @foreach ($mechanics as $mechanic)
-                                    <option value="{{$mechanic->id}}">{{$mechanic->name}} {{$mechanic->surname}}
+                                    <option value="{{$mechanic->id}}"
+                                        @if($mechanic->id == old('mechanic_id')) selected @endif>
+                                        {{$mechanic->name}} {{$mechanic->surname}}
                                     </option>
                                     @endforeach
                                 </select>

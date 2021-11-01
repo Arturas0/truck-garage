@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-8">
             <div class="card">
                 <div class="card-header">Mechanics</div>
                 <div class="card-body">
@@ -11,6 +11,7 @@
                     <form action="{{route('mechanic_destroy', $mechanic)}}" method="POST">
                         @csrf
                         <button type="submit">DELETE</button>
+                        <hr>
                     </form>
                     <br>
                     @endforeach
