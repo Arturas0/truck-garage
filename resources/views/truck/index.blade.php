@@ -5,57 +5,66 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">All trucks
-                                        
-                    <form action="{{route('truck_index')}}" method="GET">
-                        <div class="form-group mt-3">
-                            <label for="mechanic">Select mechanic</label>
-                        <select class="form-control" name="mechanic" id="mechanic">
-                            <option value="default" default>
-                                Filter by
-                            </option>
-                            @foreach ($mechanics as $mechanic)
-                            <option value="{{$mechanic->id}}" @if($mechanic->id == $mechanic_id) selected @endif>
-                                {{$mechanic['name']}} {{$mechanic['surname']}}
-                            </option>
-                            @endforeach
-                        </select>
-                        </div>
-
-                        <div class="form-group">  
-                            <label for="maker">Select car maker</label>           
-                        <select class="form-control" name="truck_maker" id="maker">
-                            <option value="default" default>
-                                Filter by
-                            </option>
-                            @foreach ($truckMakers as $truckMaker)
-                            <option value="{{$truckMaker->maker}}" @if($truckMaker->maker == $truck_maker) selected @endif>
-                                {{$truckMaker['maker']}}
-                            </option>
-                            @endforeach
-                        </select>
-                        </div>
-                            <div class="form-group">
-                        <button class="btn btn-primary" type="submit">FILTER</button>
-                        <a href="{{route('truck_index')}}" class="btn btn-warning m-2">RESET</a>
+                    <div class="car-header__filter">
+                        <form action="{{route('truck_index')}}" method="GET">
+                            <div class="row">
+                                <div class="form-group mt-3 col-6">
+                                    <label for="mechanic">Select mechanic</label>
+                                    <select class="form-control" name="mechanic" id="mechanic">
+                                        <option value="default" hidden>
+                                            Filter by
+                                        </option>
+                                        @foreach ($mechanics as $mechanic)
+                                        <option value="{{$mechanic->id}}" @if($mechanic->id == $mechanic_id) selected
+                                            @endif>
+                                            {{$mechanic['name']}} {{$mechanic['surname']}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group mt-3 col-6">
+                                    <label for="maker">Select car maker</label>
+                                    <select class="form-control" name="truck_maker" id="maker">
+                                        <option value="default" hidden>
+                                            Filter by
+                                        </option>
+                                        @foreach ($truckMakers as $truckMaker)
+                                        <option value="{{$truckMaker->maker}}" @if($truckMaker->maker == $truck_maker)
+                                            selected @endif>
+                                            {{$truckMaker['maker']}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-12">
+                                    <button class="btn btn-primary" type="submit">FILTER</button>
+                                    <a href="{{route('truck_index')}}" class="btn btn-warning m-2">RESET</a>
+                                </div>
                             </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-
-
-
                 <div class="card-body">
                     @foreach ($trucks as $truck)
-                    <div class="car-body__flex">
-                        <a class="card-body__wrap" href="{{route('truck_edit', [$truck])}}">{{$truck->maker}}
-                            {{$truck->plate}} –
-                            {{$truck->truckMechanic->name}} {{$truck->truckMechanic->surname}}</a>
-                        <form class="card-body__wrap" action="{{route('truck_destroy', $truck)}}" method="POST">
-                            @csrf
-                            <button class="btn btn-primary mt-2" type="submit">DELETE</button>
-                            <hr>
-                        </form>
-                        <br>
+                    <div class="card-body__flex">
+                        <div class="col-8">
+                            <span>Truck: {{$truck->maker}}, </span>
+                            <span>plate number: {{$truck->plate}}, </span>
+                            <span>assigned to:  {{$truck->truckMechanic->name}} {{$truck->truckMechanic->surname}}</span>
+                        </div>
+                        <div class="col-4 card-body__flex__element">
+                            <div>
+                            <a class="btn btn-success" href="{{route('truck_edit', [$truck])}}">Show more</a>
+                        </div>
+                        <div>
+                            <form action="{{route('truck_destroy', $truck)}}" method="POST">
+                                @csrf
+                                <button class="btn btn-danger" type="submit">DELETE</button>
+                            </form>
+                        </div>
                     </div>
+                    </div>
+                    <hr>
                     @endforeach
                 </div>
             </div>

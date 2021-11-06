@@ -10004,22 +10004,29 @@ h3 {
     border-color: #dee2e6;
   }
 }
-.card-body__wrap {
+.card-body__flex {
   display: flex;
-  flex-direction: column;
-  justify-content: "space-between";
-  align-items: "center";
-  flex-wrap: wrap;
-  color: green;
-}
-
-.car-body__flex {
-  display: flex;
-  flex-direction: column;
+  flex-flow: row wrap;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  color: green;
+}
+.card-body__flex__element {
+  display: flex;
+  flex-flow: row wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: space-between;
+  flex-wrap: wrap;
+}
+.card-body__flex__wrap {
+  display: flex;
+  flex-flow: row wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .box {
@@ -10030,11 +10037,11 @@ h3 {
 
 .form-abe .custom-field {
   display: flex;
-  flex-direction: column;
-  justify-content: "space-between";
-  align-items: "center";
+  flex-flow: row wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
-  color: green;
   position: relative;
   font-size: 14px;
   border-top: 1.25rem solid transparent;
@@ -10112,4 +10119,9 @@ h3 {
   color: #222;
   background: #fff;
   width: auto;
+}
+
+.car-header__filter {
+  padding: 10px;
+  border: 1px black;
 }

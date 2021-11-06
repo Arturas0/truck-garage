@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-group">
                             <label>Mechanic notices</label>
-                            <textarea class="form-control" name="mechanic_notices">{{$truck->mechanic_notices}}</textarea>
+                            <textarea class="form-control" name="mechanic_notices" id="summernote">{!!$truck->mechanic_notices!!}</textarea>
                             <small class="form-text text-muted">Mechaniko užrašai</small>
                         </div>
                         @csrf
@@ -54,6 +54,11 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+    $('#summernote').summernote();
+    });
+    </script>
 @endsection
 
 @section('page_title')

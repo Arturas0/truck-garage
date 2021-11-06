@@ -47,7 +47,7 @@ Register truck
                         </div>
                         <div class="form-group">
                             <label>Mechanic notices</label>
-                            <textarea class="form-control" name="mechanic_notices"></textarea>
+                            <textarea class="form-control" name="mechanic_notices" id="summernote"></textarea>
                             <small class="form-text text-muted">Mechaniko užrašai</small>
                         </div>
                         @csrf
@@ -58,4 +58,9 @@ Register truck
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+    $('#summernote').summernote();
+    });
+    </script>
 @endsection
