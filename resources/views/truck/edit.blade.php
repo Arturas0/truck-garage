@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">Edit truck information</div>
                 <div class="card-body">
-                    <form action="{{route('truck_update', [$truck])}}" method="POST">
+                    <form action="{{route('truck_update', [$truck])}}" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="truck_maker">Maker</label>
@@ -46,6 +46,10 @@
                             <textarea class="form-control" name="mechanic_notices" id="summernote">{!!$truck->mechanic_notices!!}</textarea>
                             <small class="form-text text-muted">Mechaniko užrašai</small>
                         </div>
+                        <img src="{{ $image}}" Paveikslas width="500" height="600"/>
+                            <div class="form-group mt-4">
+                                <input type="file" name="image" class="form-control" accept=".jpg,.jpeg,.bmp,.png,.gif,.doc,.docx,.csv,.rtf,.xlsx,.xls,.txt,.pdf,.zip">
+                          </div>
                         @csrf
                         <button class="btn btn-success" type="submit">EDIT</button>
                     </form>
