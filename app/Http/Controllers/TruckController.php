@@ -7,28 +7,37 @@ namespace App\Http\Controllers;
 use App\Models\Truck;
 use App\Models\Mechanic;
 use Illuminate\Http\Request;
-use App\Http\Requests\TruckUpsertRequest;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+use App\Http\Requests\TruckUpsertRequest;
 
 class TruckController extends Controller
 {
     public function index(Request $request): View
     {
-        $trucks = Truck::all();
+        // $trucks = Truck::all();
         $truckMakers = Truck::all()->unique('maker');
         $mechanics = Mechanic::all();
 
-        if ($request->mechanic && $request->mechanic != "default" && $request->truck_maker && $request->truck_maker != "default") {
-            $trucks = Truck::where('mechanic_id', $request->mechanic)
-                ->where('maker', $request->truck_maker)
-                ->get();
-        } elseif ($request->mechanic && $request->mechanic != "default") {
-            $trucks = Truck::where('mechanic_id', $request->mechanic)
-                ->get();
-        } elseif ($request->truck_maker && $request->truck_maker != "default") {
-            $trucks = Truck::where('maker', $request->truck_maker)->get();
-        }
+        // if ($request->mechanic && $request->mechanic != "default" && $request->truck_maker && $request->truck_maker != "default") {
+        //     $trucks = Truck::where('mechanic_id', $request->mechanic)
+        //         ->where('maker', $request->truck_maker)
+        //         ->get();
+        // } elseif ($request->mechanic && $request->mechanic != "default") {
+        //     $trucks = Truck::where('mechanic_id', $request->mechanic)
+        //         ->get();
+        // } elseif ($request->truck_maker && $request->truck_maker != "default") {
+        //     $trucks = Truck::where('maker', $request->truck_maker)->get();
+        // }
+
+        $trucks = QueryBuilder::for(Truck::class)
+            ->allowedFilters([
+                AllowedFilter::exact('truckMechanic.id'),
+                AllowedFilter::exact('maker'),
+            ])
+            ->get();
 
         return view('truck.index', [
             'trucks' => $trucks,
