@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mechanic;
 use App\Models\Truck;
+use App\Models\Mechanic;
 use Illuminate\Http\Request;
+use App\Http\Requests\TruckUpdateRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 
 class TruckController extends Controller
@@ -120,47 +122,28 @@ class TruckController extends Controller
         $mechanics = Mechanic::all();
         return view('truck.edit', [
             'truck' => $truck,
-            'mechanics' => $mechanics
+            'mechanics' => $mechanics,
+            'image' => $truck->getFirstMediaUrl('image'),
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Truck  $truck
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Truck $truck)
+    public function update(TruckUpdateRequest $request, Truck $truck): RedirectResponse
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'truck_maker' => ['required', 'max:255'],
-                'truck_plate' => ['required', 'alpha_dash', 'max:20'],
-                'truck_make_year' => ['required', 'numeric', 'digits:4']
-            ],
-
-            ['truck_maker.required' => 'Truck maker is missing']
-
-        );
-
         $request->flash();
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator);
-        }
+        $truck->update([
+            'maker' => $request->truck_maker,
+            'plate' => $request->truck_plate,
+            'make_year' => $request->truck_make_year,
+            'mechanic_notices' => $request->mechanic_notices,
+            'mechanic_id' => $request->mechanic_id
+        ]);
 
-        $truck->maker = $request->truck_maker;
-        $truck->plate = $request->truck_plate;
-        $truck->make_year = $request->truck_make_year;
-        $truck->mechanic_notices = $request->mechanic_notices;
-        $truck->mechanic_id = $request->mechanic_id;
-        $truck->save();
+        $truck->addMedia($request->file('image'))
+            ->toMediaCollection('image');
 
-        return redirect()->route('truck_index')->with('success_message', 'Sėkmingai
-        pakeista');
+        return redirect()->route('truck_index')
+            ->with('success_message', 'Sėkmingai pakeista');
     }
 
     /**
@@ -172,7 +155,7 @@ class TruckController extends Controller
     public function destroy(Truck $truck)
     {
         $truck->delete();
-        return redirect()->route('truck_index')->with('success_message', 'Sėkmingai
-        ištrinta');
+        return redirect()->route('truck_index')
+            ->with('success_message', 'Sėkmingai ištrinta');
     }
 }
