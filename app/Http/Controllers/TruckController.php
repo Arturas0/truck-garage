@@ -17,33 +17,20 @@ class TruckController extends Controller
 {
     public function index(Request $request): View
     {
-        // $trucks = Truck::all();
         $truckMakers = Truck::all()->unique('maker');
         $mechanics = Mechanic::all();
-
-        // if ($request->mechanic && $request->mechanic != "default" && $request->truck_maker && $request->truck_maker != "default") {
-        //     $trucks = Truck::where('mechanic_id', $request->mechanic)
-        //         ->where('maker', $request->truck_maker)
-        //         ->get();
-        // } elseif ($request->mechanic && $request->mechanic != "default") {
-        //     $trucks = Truck::where('mechanic_id', $request->mechanic)
-        //         ->get();
-        // } elseif ($request->truck_maker && $request->truck_maker != "default") {
-        //     $trucks = Truck::where('maker', $request->truck_maker)->get();
-        // }
-
         $trucks = QueryBuilder::for(Truck::class)
             ->allowedFilters([
-                AllowedFilter::exact('truckMechanic.id'),
-                AllowedFilter::exact('maker'),
+                AllowedFilter::exact('mechanic', 'truckMechanic.id')->ignore('all'),
+                AllowedFilter::exact('maker')->ignore('all'),
             ])
             ->get();
 
         return view('truck.index', [
             'trucks' => $trucks,
             'mechanics' => $mechanics,
-            'mechanic_id' => $request->mechanic ?? 0,
-            'truck_maker' => $request->truck_maker ?? '',
+            'mechanic_id' => $request->filter['mechanic'] ?? 0,
+            'maker' => $request->filter['maker'] ?? '',
             'truckMakers' => $truckMakers
         ]);
     }
