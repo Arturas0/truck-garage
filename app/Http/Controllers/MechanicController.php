@@ -1,52 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Mechanic;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class MechanicController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): View
     {
         $mechanics = Mechanic::all();
         return view('mechanic.index', ['mechanics' => $mechanics]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): View
     {
         return view('mechanic.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $mechanic = new Mechanic();
         $mechanic->name = $request->mechanic_name;
         $mechanic->surname = $request->mechanic_surname;
         $mechanic->save();
-        return redirect()->route('mechanic_index')->with('success_message', 'Sėkmingai
-        įrašytas');
+
+        return redirect()
+            ->route('mechanic_index')
+            ->with('success_message', 'Sėkmingai įrašytas');
     }
 
     /**
@@ -60,48 +45,33 @@ class MechanicController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Mechanic  $mechanic
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Mechanic $mechanic)
+    public function edit(Mechanic $mechanic): View
     {
         return view('mechanic.edit', ['mechanic' => $mechanic]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Mechanic  $mechanic
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Mechanic $mechanic)
+    public function update(Request $request, Mechanic $mechanic): RedirectResponse
     {
         $mechanic->name = $request->mechanic_name;
         $mechanic->surname = $request->mechanic_surname;
         $mechanic->save();
 
-        return redirect()->route('mechanic_index')->with('success_message', 'Sėkmingai
-        pakeistas');
+        return redirect()
+            ->route('mechanic_index')
+            ->with('success_message', 'Sėkmingai pakeistas');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Mechanic  $mechanic
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Mechanic $mechanic)
+    public function destroy(Mechanic $mechanic): RedirectResponse
     {
         if ($mechanic->mechanicTrucks->count()) {
-            return redirect()->route('mechanic_index')->with('info_message', 'Trinti negalima, nes
-            turi automobilių.');
+            return redirect()->route('mechanic_index')
+                ->with('info_message', 'Trinti negalima, nes turi automobilių.');
         }
+
         $mechanic->delete();
-        return redirect()->route('mechanic_index')->with('success_message', 'Sėkmingai
-        ištrinta');
+
+        return redirect()
+            ->route('mechanic_index')
+            ->with('success_message', 'Sėkmingai ištrinta');
     }
 }

@@ -10,8 +10,8 @@
                             <div class="row">
                                 <div class="form-group mt-3 col-6">
                                     <label for="mechanic">Select mechanic</label>
-                                    <select class="form-control" name="mechanic" id="mechanic">
-                                        <option value="default" hidden>
+                                    <select class="form-control" name="filter[mechanic]" id="mechanic">
+                                            <option value="all" hidden>
                                             Filter by
                                         </option>
                                         @foreach ($mechanics as $mechanic)
@@ -22,14 +22,15 @@
                                         @endforeach
                                     </select>
                                 </div>
+
                                 <div class="form-group mt-3 col-6">
                                     <label for="maker">Select car maker</label>
-                                    <select class="form-control" name="truck_maker" id="maker">
-                                        <option value="default" hidden>
+                                    <select class="form-control" name="filter[maker]" id="maker">
+                                        <option value="all" hidden>
                                             Filter by
                                         </option>
                                         @foreach ($truckMakers as $truckMaker)
-                                        <option value="{{$truckMaker->maker}}" @if($truckMaker->maker == $truck_maker)
+                                        <option value="{{$truckMaker->maker}}" @if($truckMaker->maker == $maker)
                                             selected @endif>
                                             {{$truckMaker['maker']}}
                                         </option>

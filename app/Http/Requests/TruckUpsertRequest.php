@@ -6,7 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TruckUpdateRequest extends FormRequest
+class TruckUpsertRequest extends FormRequest
 {
     public function authorize(): bool
     {
