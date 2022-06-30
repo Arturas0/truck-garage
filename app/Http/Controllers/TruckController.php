@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use App\Http\Requests\TruckUpsertRequest;
+use Spatie\QueryBuilder\QueryBuilderRequest;
 
 class TruckController extends Controller
 {
@@ -19,7 +20,11 @@ class TruckController extends Controller
     {
         $truckMakers = Truck::all()->unique('maker');
         $mechanics = Mechanic::all();
+
+        QueryBuilderRequest::setArrayValueDelimiter('|');
+
         $trucks = QueryBuilder::for(Truck::class)
+
             ->allowedFilters([
                 AllowedFilter::exact('mechanic', 'truckMechanic.id')->ignore('all'),
                 AllowedFilter::exact('maker')->ignore('all'),

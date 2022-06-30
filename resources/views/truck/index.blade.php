@@ -17,7 +17,7 @@
                                         @foreach ($mechanics as $mechanic)
                                         <option value="{{$mechanic->id}}" @if($mechanic->id == $mechanic_id) selected
                                             @endif>
-                                            {{$mechanic['name']}} {{$mechanic['surname']}}
+                                            {{$mechanic['firstname']}} {{$mechanic['lastname']}}
                                         </option>
                                         @endforeach
                                     </select>
@@ -51,7 +51,7 @@
                         <div class="col-8">
                             <span>Truck: {{$truck->maker}}, </span>
                             <span>plate number: {{$truck->plate}}, </span>
-                            <span>assigned to:  {{$truck->truckMechanic->name}} {{$truck->truckMechanic->surname}}</span>
+                            <span>assigned to:  {{$truck->truckMechanic->firstname}} {{$truck->truckMechanic->lastname}}</span>
                         </div>
                         <div class="col-4 card-body__flex__element">
                             <div>

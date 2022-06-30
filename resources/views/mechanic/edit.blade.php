@@ -7,8 +7,8 @@
                 <div class="card-header">Edit mechanic</div>
                 <div class="card-body">
                     <form action="{{route('mechanic_update', $mechanic)}}" method="POST">
-                        Name: <input type="text" name="mechanic_name" value="{{$mechanic->name}}">
-                        Surname: <input type="text" name="mechanic_surname" value="{{$mechanic->surname}}">
+                        Name: <input type="text" name="firstname" value="{{$mechanic->firstname}}">
+                        Surname: <input type="text" name="lastname" value="{{$mechanic->lastname}}">
                         @csrf
                         <button type="submit">EDIT</button>
                     </form>
