@@ -7,7 +7,7 @@
                 <div class="card-header">Mechanics</div>
                 <div class="card-body">
                     @foreach ($mechanics as $mechanic)
-                    <a href="{{route('mechanic_edit', [$mechanic])}}">{{$mechanic->name}} {{$mechanic->surname}}</a>
+                    <a href="{{route('mechanic_edit', [$mechanic])}}">{{$mechanic->firstname}} {{$mechanic->lastname}}</a>
                     <form action="{{route('mechanic_destroy', $mechanic)}}" method="POST">
                         @csrf
                         <button type="submit">DELETE</button>

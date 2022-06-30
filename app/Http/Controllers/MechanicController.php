@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MechanicUpsertRequest;
 use App\Models\Mechanic;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class MechanicController extends Controller
 {
@@ -22,24 +22,18 @@ class MechanicController extends Controller
         return view('mechanic.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(MechanicUpsertRequest $request): RedirectResponse
     {
-        $mechanic = new Mechanic();
-        $mechanic->name = $request->mechanic_name;
-        $mechanic->surname = $request->mechanic_surname;
-        $mechanic->save();
+        Mechanic::query()->create([
+            'firstname' => $request->validated('firstname'),
+            'lastname' => $request->validated('lastname'),
+        ]);
 
         return redirect()
             ->route('mechanic_index')
-            ->with('success_message', 'Sėkmingai įrašytas');
+            ->with('success_message', trans('messages.mechanic.created'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Mechanic  $mechanic
-     * @return \Illuminate\Http\Response
-     */
     public function show(Mechanic $mechanic)
     {
         //
@@ -50,15 +44,16 @@ class MechanicController extends Controller
         return view('mechanic.edit', ['mechanic' => $mechanic]);
     }
 
-    public function update(Request $request, Mechanic $mechanic): RedirectResponse
+    public function update(MechanicUpsertRequest $request, Mechanic $mechanic): RedirectResponse
     {
-        $mechanic->name = $request->mechanic_name;
-        $mechanic->surname = $request->mechanic_surname;
-        $mechanic->save();
+        $mechanic->update([
+            'firstname' => $request->validated('firstname'),
+            'lastname' => $request->validated('lastname'),
+        ]);
 
         return redirect()
             ->route('mechanic_index')
-            ->with('success_message', 'Sėkmingai pakeistas');
+            ->with('success_message', trans('messages.mechanic.updated'));
     }
 
     public function destroy(Mechanic $mechanic): RedirectResponse
