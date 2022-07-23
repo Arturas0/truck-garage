@@ -12,6 +12,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
+        "pelmered/fake-car": "^1.7",
         "spatie/laravel-medialibrary": "^10.0",
         "spatie/laravel-query-builder": "^5.0"
     },

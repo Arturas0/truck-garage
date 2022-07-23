@@ -5,26 +5,25 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 use Illuminate\Support\Facades\DB;
 
 class MechanicSeeder extends Seeder
 {
     public function run(): void
     {
-        $faker = Faker::create();
+        $faker = \Faker\Factory::create('lt_LT');
 
         $mechanics = [
             [
-                'firstname' => $faker->firstName(),
+                'firstname' => $faker->firstNameMale(),
                 'lastname' => $faker->lastName(),
             ],
             [
-                'firstname' => $faker->firstName(),
+                'firstname' => $faker->firstNameMale(),
                 'lastname' => $faker->lastName(),
             ],
             [
-                'firstname' => $faker->firstName(),
+                'firstname' => $faker->firstNameFemale(),
                 'lastname' => $faker->lastName(),
             ],
         ];

@@ -31,10 +31,10 @@
                                 <label>Mechanic</label>
                                 <select class="form-control" name="mechanic_id" id="mechanic_id">
                                     @foreach ($mechanics as $mechanic)
-                                    <option value="{{$mechanic->id}}" @if ($mechanic->id == $truck->mechanic_id)
+                                    <option value="{{$mechanic->id}}" @if ($mechanic->id === $truck->mechanic_id)
                                         selected
                                         @endif >
-                                        {{$mechanic->name}} {{$mechanic->surname}}
+                                        {{$mechanic->firstname}} {{$mechanic->lastname}}
                                     </option>
                                     @endforeach
                                 </select>

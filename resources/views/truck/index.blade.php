@@ -15,7 +15,7 @@
                                             Filter by
                                         </option>
                                         @foreach ($mechanics as $mechanic)
-                                        <option value="{{$mechanic->id}}" @if($mechanic->id == $mechanic_id) selected
+                                        <option value="{{$mechanic->id}}" @if($mechanic->id === $mechanic_id) selected
                                             @endif>
                                             {{$mechanic['firstname']}} {{$mechanic['lastname']}}
                                         </option>
@@ -30,7 +30,7 @@
                                             Filter by
                                         </option>
                                         @foreach ($truckMakers as $truckMaker)
-                                        <option value="{{$truckMaker->maker}}" @if($truckMaker->maker == $maker)
+                                        <option value="{{$truckMaker->maker}}" @if($truckMaker->maker === $maker)
                                             selected @endif>
                                             {{$truckMaker['maker']}}
                                         </option>

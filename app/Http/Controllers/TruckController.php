@@ -24,7 +24,6 @@ class TruckController extends Controller
         QueryBuilderRequest::setArrayValueDelimiter('|');
 
         $trucks = QueryBuilder::for(Truck::class)
-
             ->allowedFilters([
                 AllowedFilter::exact('mechanic', 'truckMechanic.id')->ignore('all'),
                 AllowedFilter::exact('maker')->ignore('all'),
